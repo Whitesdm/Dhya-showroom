@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARADHYA MOTORS | Luxury Showroom</title>
+
+<style>
+:root {
+  --gold: #d4af37;
+  --gold-light: #f2d675;
+  --black: #080808;
+  --panel: #151515;
+  --muted: #999;
+  --white: #fff;
+}
+* {margin:0;padding:0;box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  background:var(--black);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+}
+button,input,select {font:inherit}
+button,a {cursor:pointer}
+a {text-decoration:none;color:inherit}
+header {
+  height:78px;padding:0 7%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#090909;border-bottom:1px solid #292929;
+  position:sticky;top:0;z-index:20;
+}
+.logo {font-size:25px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+.logo span {color:white}
+nav {display:flex;gap:28px;align-items:center}
+nav a {font-size:13px;color:#ddd;transition:.3s}
+nav a:hover {color:var(--gold)}
+.gold-btn {
+  background:var(--gold);color:#090909;border:0;
+  padding:13px 22px;font-weight:bold;
+  display:inline-block;transition:.3s;
+}
+.gold-btn:hover {background:var(--gold-light);transform:translateY(-2px)}
+.outline-btn {
+  border:1px solid var(--gold);color:var(--gold);
+  padding:12px 18px;background:transparent;
+}
+.hero {
+  min-height:620px;height:85vh;max-height:850px;
+  display:flex;align-items:center;padding:8%;
+  background:
+    linear-gradient(90deg,#050505 5%,rgba(0,0,0,.7) 48%,transparent),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=2000") center/cover;
+}
+.hero-content {max-width:620px}
+.eyebrow {color:var(--gold);letter-spacing:5px;font-size:12px;margin-bottom:22px}
+.hero h1 {font-size:clamp(45px,7vw,82px);line-height:1.06;margin-bottom:24px}
+.hero h1 span {color:var(--gold)}
+.hero p {color:#ccc;line-height:1.9;max-width:480px;margin-bottom:30px}
+.section {padding:85px 7%}
+.section-heading {text-align:center;margin-bottom:45px}
+.section-heading small {color:var(--gold);letter-spacing:4px}
+.section-heading h2 {font-size:35px;margin:15px 0}
+.section-heading p {color:var(--muted)}
+.filters {
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px;
+  justify-content:center;
+}
+.filters input,.filters select {
+  background:#171717;border:1px solid #333;color:white;
+  padding:13px 16px;outline:none;min-width:190px;
+}
+.car-grid {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:25px;
+}
+.car-card {
+  background:var(--panel);border:1px solid #292929;
+  overflow:hidden;transition:.3s;
+}
+.car-card:hover {transform:translateY(-7px);border-color:var(--gold)}
+.car-card img {width:100%;height:220px;object-fit:cover}
+.car-info {padding:23px}
+.car-info h3 {font-size:21px;margin-bottom:10px}
+.car-info p {color:var(--muted);font-size:13px;line-height:1.7}
+.car-price {color:var(--gold);font-size:22px;font-weight:bold;margin:17px 0}
+.car-actions {display:flex;gap:10px}
+.car-actions button {flex:1;font-size:12px;padding:12px 5px}
+.about {background:#111;text-align:center}
+.about-content {max-width:750px;margin:auto}
+.about p {color:#aaa;line-height:2;margin-top:20px}
+.stats {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;margin-top:45px;
+}
+.stat h3 {font-size:34px;color:var(--gold)}
+.stat p {font-size:13px}
+.contact {text-align:center}
+.contact p {color:#aaa;margin:20px 0}
+footer {padding:30px;text-align:center;border-top:1px solid #292929;color:#777;font-size:13px}
+footer span {color:var(--gold)}
+.hidden {display:none!important}
+
+/* MODALS */
+.modal {
+  position:fixed;inset:0;background:#000d;z-index:100;
+  display:flex;justify-content:center;align-items:center;
+  padding:15px;overflow-y:auto;
+}
+.modal-box {
+  width:100%;max-width:480px;background:#171717;
+  border:1px solid var(--gold);padding:30px;
+  max-height:90vh;overflow-y:auto;position:relative;
+}
+.modal-box h2 {color:var(--gold);margin-bottom:20px}
+.close {
+  position:absolute;right:17px;top:13px;
+  background:none;color:white;border:0;font-size:25px;
+}
+.form-group {margin-bottom:15px}
+.form-group label {display:block;margin-bottom:7px;font-size:13px;color:#ccc}
+.form-group input,.form-group select,.form-group textarea {
+  width:100%;padding:13px;background:#090909;
+  color:white;border:1px solid #444;outline:none;
+}
+.form-group input:focus,.form-group select:focus {border-color:var(--gold)}
+.form-submit {width:100%;margin-top:10px}
+.switch {color:var(--gold);cursor:pointer}
+.message {font-size:13px;margin-top:13px;color:var(--gold)}
+.details-img {width:100%;height:210px;object-fit:cover;margin-bottom:20px}
+.detail-list {color:#bbb;line-height:2;margin:15px 0}
+
+/* ADMIN */
+.admin-layout {min-height:75vh;padding:50px 7%}
+.admin-title {color:var(--gold);margin-bottom:25px}
+.admin-stats {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:35px;
+}
+.admin-stat {background:#171717;padding:25px;border:1px solid #333}
+.admin-stat h3 {color:var(--gold);font-size:28px;margin-top:12px}
+.admin-table {width:100%;border-collapse:collapse;margin-top:20px;min-width:600px}
+.admin-table th,.admin-table td {
+  padding:14px;text-align:left;border-bottom:1px solid #333;font-size:13px;
+}
+.admin-table th {color:var(--gold)}
+.table-wrap {overflow-x:auto}
+.admin-actions {display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.small-btn {padding:8px 12px;border:0;background:var(--gold);color:black}
+.delete-btn {background:#9e2929;color:white}
+.status {color:var(--gold)}
+@media(max-width:850px) {
+  .car-grid {grid-template-columns:repeat(2,1fr)}
+  header {padding:15px 4%;height:auto;flex-wrap:wrap;gap:15px}
+  nav {gap:14px;flex-wrap:wrap}
+}
+@media(max-width:550px) {
+  .car-grid {grid-template-columns:1fr}
+  .hero {height:75vh}
+  .section {padding:65px 5%}
+  .stats,.admin-stats {grid-template-columns:1fr}
+  nav a {font-size:11px}
+  .logo {font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#home" class="logo">DHYA <span>MOTORS</span></a>
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#cars">SHOWROOM</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+    <button class="outline-btn" id="accountBtn" onclick="openAuth()">LOGIN</button>
+  </nav>
+</header>
+
+<main id="mainSite">
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">THE ART OF AUTOMOTIVE LUXURY</div>
+    <h1>DRIVE THE <span>EXTRAORDINARY.</span></h1>
+    <p>Discover exceptional automobiles. Experience the perfect combination of elegance, power, performance and prestige.</p>
+    <a href="#cars" class="gold-btn">EXPLORE COLLECTION →</a>
+  </div>
+</section>
+
+<section class="section" id="cars">
+  <div class="section-heading">
+    <small>OUR SHOWROOM</small>
+    <h2>EXCLUSIVE COLLECTION</h2>
+    <p>Explore our handpicked collection of premium automobiles.</p>
+  </div>
+
+  <div class="filters">
+    <input type="search" id="searchInput" placeholder="Search cars..." oninput="renderCars()">
+    <select id="categoryFilter" onchange="renderCars()">
+      <option value="All">All Categories</option>
+      <option value="SUV">Luxury SUV</option>
+      <option value="Sedan">Luxury Sedan</option>
+      <option value="Sports">Sports Cars</option>
+    </select>
+    <select id="sortFilter" onchange="renderCars()">
+      <option value="default">Sort by</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+    </select>
+  </div>
+
+  <div class="car-grid" id="carGrid"></div>
+</section>
+
+<section class="section about" id="about">
+  <div class="about-content">
+    <div class="section-heading">
+      <small>OUR STORY</small>
+      <h2>BEYOND LUXURY</h2>
+    </div>
+    <p>
+      ELITE MOTORS represents a passion for extraordinary automobiles.
+      We bring together world-class engineering, beautiful design and
+      exceptional customer service to make every purchase memorable.
+    </p>
+    <div class="stats">
+      <div class="stat"><h3>100+</h3><p>Luxury Vehicles</p></div>
+      <div class="stat"><h3>50+</h3><p>Premium Brands</p></div>
+      <div class="stat"><h3>24/7</h3><p>Customer Support</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="section-heading">
+    <small>GET IN TOUCH</small>
+    <h2>YOUR DREAM CAR AWAITS</h2>
+    <p>Speak with our team to discover your next luxury vehicle.</p>
+  </div>
+  <a class="gold-btn" href="mailto:info@elitemotors.com">CONTACT OUR TEAM</a>
+</section>
+</main>
+
+<!-- ADMIN AREA -->
+<section id="adminPage" class="admin-layout hidden">
+  <h1 class="admin-title">ELITE MOTORS | ADMIN DASHBOARD</h1>
+  <p>Manage your inventory and customer reservations.</p>
+
+  <div class="admin-stats">
+    <div class="admin-stat">Total Vehicles<h3 id="totalCars">0</h3></div>
+    <div class="admin-stat">Total Bookings<h3 id="totalBookings">0</h3></div>
+    <div class="admin-stat">Registered Users<h3 id="totalUsers">0</h3></div>
+  </div>
+
+  <h2>Vehicle Management</h2>
+  <div class="admin-actions">
+    <button class="gold-btn" onclick="showCarForm()">+ Add New Car</button>
+    <button class="outline-btn" onclick="logout()">Logout</button>
+    <button class="outline-btn" onclick="showSite()">View Website</button>
+  </div>
+
+  <div id="carForm" class="modal-box hidden" style="margin-bottom:25px">
+    <h2>Add Vehicle</h2>
+    <div class="form-group"><label>Car Name</label><input id="newName"></div>
+    <div class="form-group"><label>Price (USD)</label><input id="newPrice" type="number"></div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="newCategory">
+        <option>SUV</option><option>Sedan</option><option>Sports</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Image URL</label><input id="newImage"></div>
+    <button class="gold-btn" onclick="addCar()">Save Vehicle</button>
+  </div>
+
+  <h2>Inventory</h2>
+  <div class="table-wrap">
+    <table class="admin-table">
+      <thead><tr><th>Vehicle</th><th>Price</th><th>Category</th><th>Action</th></tr></thead>
+      <tbody id="inventoryTable"></tbody>
+    </table>
+  </div>
+
+  <h2 style="margin-top:45px">Customer Bookings</h2>
+  <div class="table-wrap">
+    <table class="admin-table">
+      <thead><tr><th>Customer</th><th>Vehicle</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="bookingTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AUTH MODAL -->
+<div class="modal hidden" id="authModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('authModal')">×</button>
+    <h2 id="authTitle">Customer Login</h2>
+
+    <form id="authForm">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="authEmail" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="authPassword" required minlength="6">
+      </div>
+      <div class="form-group hidden" id="nameGroup">
+        <label>Full Name</label>
+        <input id="authName">
+      </div>
+      <button class="gold-btn form-submit" id="authSubmit">LOGIN</button>
+    </form>
+    <p class="message" id="authMessage"></p>
+    <p style="margin-top:20px;font-size:13px;color:#aaa">
+      <span id="switchText">Don't have an account?</span>
+      <span class="switch" onclick="toggleAuth()"> Register</span>
+    </p>
+  </div>
+</div>
+
+<!-- CAR DETAILS MODAL -->
+<div class="modal hidden" id="detailsModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('detailsModal')">×</button>
+    <div id="detailsContent"></div>
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal hidden" id="bookingModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('bookingModal')">×</button>
+    <h2>Reserve Your Vehicle</h2>
+    <form id="bookingForm">
+      <div class="form-group"><label>Selected Vehicle</label><input id="bookingCar" readonly></div>
+      <div class="form-group"><label>Your Name</label><input id="bookingName" required></div>
+      <div class="form-group"><label>Email</label><input id="bookingEmail" type="email" required></div>
+      <div class="form-group"><label>Phone Number</label><input id="bookingPhone" type="tel" required></div>
+      <div class="form-group"><label>Preferred Date</label><input type="date" id="bookingDate" required></div>
+      <button class="gold-btn form-submit">SUBMIT BOOKING</button>
+    </form>
+    <p class="message" id="bookingMessage"></p>
+  </div>
+</div>
+
+<footer>
+  © 2026 <span>ELITE MOTORS</span>. ALL RIGHTS RESERVED.
+</footer>
+
+<script>
+// INITIAL VEHICLE INVENTORY
+const defaultCars = [
+ {id:1,name:"Rolls-Royce Phantom",price:500000,category:"Sedan",
+ image:"https://images.unsplash.com/photo-1631295868223-63265b40d9e4?w=900",
+ description:"The ultimate expression of elegance and craftsmanship.",
+ specs:"Automatic | V12 | Ultra Luxury"},
+ {id:2,name:"Lamborghini Urus",price:250000,category:"SUV",
+ image:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900",
+ description:"Unmatched performance with the comfort of an SUV.",
+ specs:"Automatic | V8 | Performance SUV"},
+ {id:3,name:"Mercedes S-Class",price:120000,category:"Sedan",
+ image:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900",
+ description:"A sophisticated masterpiece of modern luxury.",
+ specs:"Automatic | Premium | Executive"},
+ {id:4,name:"Porsche 911",price:130000,category:"Sports",
+ image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900",
+ description:"Iconic design with exhilarating sports car performance.",
+ specs:"Automatic | Flat-six | Sports"},
+ {id:5,name:"BMW X7",price:105000,category:"SUV",
+ image:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900",
+ description:"Exceptional space and performance for every journey.",
+ specs:"Automatic | Luxury SUV | AWD"},
+ {id:6,name:"Ferrari 488",price:300000,category:"Sports",
+ image:"https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=900",
+ description:"Italian design and exhilarating supercar engineering.",
+ specs:"Automatic | V8 | Supercar"}
+];
+
+const getData = (key,fallback) => {
+ try {return JSON.parse(localStorage.getItem(key)) ?? fallback}
+ catch {return fallback}
+};
+
+let cars = getData("eliteCars",defaultCars);
+let users = getData("eliteUsers",[]);
+let bookings = getData("eliteBookings",[]);
+let currentUser = null;
+let isRegister = false;
+let selectedCar = null;
+
+const save = () => {
+ localStorage.setItem("eliteCars",JSON.stringify(cars));
+ localStorage.setItem("eliteUsers",JSON.stringify(users));
+ localStorage.setItem("eliteBookings",JSON.stringify(bookings));
+};
+
+const money = n => "$"+Number(n).toLocaleString("en-US");
+
+function renderCars() {
+ const search = document.getElementById("searchInput").value.toLowerCase();
+ const category = document.getElementById("categoryFilter").value;
+ const sort = document.getElementById("sortFilter").value;
+
+ let list = cars.filter(c =>
+ c.name.toLowerCase().includes(search) &&
+ (category==="All" || c.category===category)
+ );
+
+ if(sort==="low") list.sort((a,b)=>a.price-b.price);
+ if(sort==="high") list.sort((a,b)=>b.price-a.price);
+
+ document.getElementById("carGrid").innerHTML = list.length ?
+ list.map(c=>`
+ <article class="car-card">
+ <img src="${escapeHTML(c.image)}" alt="${escapeHTML(c.name)}"
+ onerror="this.src='https://placehold.co/800x500/151515/d4af37?text=Luxury+Car'">
+ <div class="car-info">
+ <h3>${escapeHTML(c.name)}</h3>
+ <p>${escapeHTML(c.category)} | Premium Collection</p>
+ <div class="car-price">${money(c.price)}</div>
+ <div class="car-actions">
+ <button class="outline-btn" onclick="showDetails(${c.id})">DETAILS</button>
+ <button class="gold-btn" onclick="bookCar(${c.id})">BOOK NOW</button>
+ </div>
+ </div>
+ </article>`).join("") :
+ "<p>No vehicles found.</p>";
+}
+
+function escapeHTML(value) {
+ return String(value).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+
+function openAuth() {
+ isRegister=false;
+ updateAuth();
+ document.getElementById("authModal").classList.remove("hidden");
+}
+
+function closeModal(id) {
+ document.getElementById(id).classList.add("hidden");
+}
+
+function toggleAuth() {
+ isRegister=!isRegister;
+ updateAuth();
+}
+
+function updateAuth() {
+ document.getElementById("authTitle").textContent=isRegister?"Create Account":"Customer Login";
+ document.getElementById("authSubmit").textContent=isRegister?"REGISTER":"LOGIN";
+ document.getElementById("nameGroup").classList.toggle("hidden",!isRegister);
+ document.getElementById("authName").required=isRegister;
+ document.getElementById("switchText").textContent=isRegister?"Already registered?":"Don't have an account?";
+ document.querySelector("#authModal .switch").textContent=isRegister?" Login":" Register";
+ document.getElementById("authMessage").textContent="";
+}
+
+document.getElementById("authForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const email=document.getElementById("authEmail").value.trim().toLowerCase();
+ const password=document.getElementById("authPassword").value;
+
+ // DEMO ADMIN ACCOUNT
+ if(!isRegister && email==="admin@elitemotors.com" && password==="Admin123!") {
+ currentUser={name:"Administrator",email,role:"admin"};
+ closeModal("authModal");
+ showAdmin();
+ return;
+ }
+
+ if(isRegister) {
+ if(users.some(u=>u.email===email)) {
+ document.getElementById("authMessage").textContent="Email already registered.";
+ return;
+ }
+ const user={
+ name:document.getElementById("authName").value.trim(),
+ email,password,role:"customer"
+ };
+ users.push(user);
+ save();
+ currentUser=user;
+ closeModal("authModal");
+ updateAccount();
+ alert("Registration successful!");
+ } else {
+ const user=users.find(u=>u.email===email && u.password===password);
+ if(!user) {
+ document.getElementById("authMessage").textContent="Invalid email or password.";
+ return;
+ }
+ currentUser=user;
+ closeModal("authModal");
+ updateAccount();
+ }
+});
+
+function updateAccount() {
+ const btn=document.getElementById("accountBtn");
+ btn.textContent=currentUser?"LOGOUT":"LOGIN";
+ btn.onclick=currentUser?logout:openAuth;
+}
+
+function showDetails(id) {
+ const car=cars.find(c=>c.id===id);
+ if(!car)return;
+ selectedCar=car;
+ document.getElementById("detailsContent").innerHTML=`
+ <img class="details-img" src="${escapeHTML(car.image)}" alt="${escapeHTML(car.name)}">
+ <h2>${escapeHTML(car.name)}</h2>
+ <p style="color:#d4af37;font-size:23px">${money(car.price)}</p>
+ <p class="detail-list">${escapeHTML(car.description)}<br>
+ ${escapeHTML(car.specs)}<br>
+ Category: ${escapeHTML(car.category)}</p>
+ <button class="gold-btn" onclick="closeModal('detailsModal');bookCar(${car.id})">RESERVE THIS CAR</button>`;
+ document.getElementById("detailsModal").classList.remove("hidden");
+}
+
+function bookCar(id) {
+ if(!currentUser) {
+ alert("Please login or register to book a vehicle.");
+ openAuth();
+ return;
+ }
+ selectedCar=cars.find(c=>c.id===id);
+ if(!selectedCar)return;
+ document.getElementById("bookingCar").value=selectedCar.name;
+ document.getElementById("bookingName").value=currentUser.name;
+ document.getElementById("bookingEmail").value=currentUser.email;
+ document.getElementById("bookingPhone").value="";
+ document.getElementById("bookingDate").min=new Date().toISOString().split("T")[0];
+ document.getElementById("bookingDate").value="";
+ document.getElementById("bookingMessage").textContent="";
+ document.getElementById("bookingModal").classList.remove("hidden");
+}
+
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ if(!selectedCar)return;
+ const booking={
+ id:Date.now(),
+ carId:selectedCar.id,
+ car:selectedCar.name,
+ name:document.getElementById("bookingName").value.trim(),
+ email:document.getElementById("bookingEmail").value.trim(),
+ phone:document.getElementById("bookingPhone").value.trim(),
+ date:document.getElementById("bookingDate").value,
+ status:"Pending"
+ };
+ bookings.push(booking);
+ save();
+ closeModal("bookingModal");
+ alert("Booking request submitted successfully!");
+});
+
+function showAdmin() {
+ if(!currentUser || currentUser.role!=="admin")return;
+ document.getElementById("mainSite").classList.add("hidden");
+ document.getElementById("adminPage").classList.remove("hidden");
+ updateAdmin();
+}
+
+function showSite() {
+ document.getElementById("adminPage").classList.add("hidden");
+ document.getElementById("mainSite").classList.remove("hidden");
+}
+
+function updateAdmin() {
+ document.getElementById("totalCars").textContent=cars.length;
+ document.getElementById("totalBookings").textContent=bookings.length;
+ document.getElementById("totalUsers").textContent=users.length;
+
+ document.getElementById("inventoryTable").innerHTML=cars.map(c=>`
+ <tr>
+ <td>${escapeHTML(c.name)}</td>
+ <td>${money(c.price)}</td>
+ <td>${escapeHTML(c.category)}</td>
+ <td><button class="small-btn delete-btn" onclick="deleteCar(${c.id})">Delete</button></td>
+ </tr>`).join("");
+
+ document.getElementById("bookingTable").innerHTML=bookings.map(b=>`
+ <tr>
+ <td>${escapeHTML(b.name)}<br>${escapeHTML(b.email)}</td>
+ <td>${escapeHTML(b.car)}</td>
+ <td>${escapeHTML(b.date)}</td>
+ <td class="status">${escapeHTML(b.status)}</td>
+ <td>
+ <button class="small-btn" onclick="changeStatus(${b.id})">Confirm</button>
+ <button class="small-btn delete-btn" onclick="deleteBooking(${b.id})">Delete</button>
+ </td>
+ </tr>`).join("") || "<tr><td colspan='5'>No bookings yet.</td></tr>";
+}
+
+function showCarForm() {
+ document.getElementById("carForm").classList.toggle("hidden");
+}
+
+function addCar() {
+ const name=document.getElementById("newName").value.trim();
+ const price=Number(document.getElementById("newPrice").value);
+ const image=document.getElementById("newImage").value.trim();
+ const category=document.getElementById("newCategory").value;
+
+ if(!name || price<=0 || !image) {
+ alert("Please enter a valid name, price and image URL.");
+ return;
+ }
+ try {
+ const url=new URL(image);
+ if(!["http:","https:"].includes(url.protocol))throw Error();
+ } catch {
+ alert("Please enter a valid image URL.");
+ return;
+ }
+
+ cars.push({id:Date.now(),name,price,category,image,
+ description:"Contact us for further vehicle details.",
+ specs:"Premium Luxury Collection"});
+ save();
+ document.getElementById("newName").value="";
+ document.getElementById("newPrice").value="";
+ document.getElementById("newImage").value="";
+ updateAdmin();
+ renderCars();
+ alert("Vehicle added successfully!");
+}
+
+function deleteCar(id) {
+ if(!confirm("Delete this vehicle?"))return;
+ cars=cars.filter(c=>c.id!==id);
+ save();
+ updateAdmin();
+ renderCars();
+}
+
+function changeStatus(id) {
+ const b=bookings.find(x=>x.id===id);
+ if(!b)return;
+ b.status=b.status==="Confirmed"?"Pending":"Confirmed";
+ save();
+ updateAdmin();
+}
+
+function deleteBooking(id) {
+ if(!confirm("Delete this booking?"))return;
+ bookings=bookings.filter(b=>b.id!==id);
+ save();
+ updateAdmin();
+}
+
+function logout() {
+ currentUser=null;
+ updateAccount();
+ showSite();
+ window.scrollTo(0,0);
+}
+
+renderCars();
+
+// Close modals by clicking outside
+document.querySelectorAll(".modal").forEach(modal=>{
+ modal.addEventListener("click",e=>{
+ if(e.target===modal)modal.classList.add("hidden");
+ });
+});
+</script>
+</body>
+</html>
